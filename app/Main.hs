@@ -2,8 +2,8 @@ module Main where
 
 import New
 import Build
-import           Data.List                   (intercalate, stripPrefix)
-import           Data.Char
+import Data.List (intercalate)
+import Data.Char
 import System.Environment (getArgs)
 
 newtype Command = Command { unCommand :: String }
@@ -17,6 +17,7 @@ openKeg c a = do
 
   let plugin = case toLower `fmap` command of
         "new" -> new
+        p -> error $ "not support plugin: " ++ p
 
   putStrLn $ "Calling " ++ command ++ " with [" ++ intercalate " " args ++ "]."
 

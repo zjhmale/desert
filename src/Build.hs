@@ -1,9 +1,9 @@
 module Build where
 
 import Development.Shake
-import Development.Shake.Command
-import Development.Shake.FilePath
-import Development.Shake.Util
+
+mlFiles :: [String]
+mlFiles = ["//*.ml", "//*.mli", "//*.mll", "//*.mly"]
 
 build :: IO ()
 build = shakeArgs shakeOptions{shakeFiles="_build"} $ do
@@ -21,14 +21,14 @@ build = shakeArgs shakeOptions{shakeFiles="_build"} $ do
         cmd "_build/bin/test"
 
     "_build/bin/main" %> \_ -> do
-        cs <- getDirectoryFiles "" ["//*.ml", "//*.mli", "//*.mll", "//*.mly"]
+        cs <- getDirectoryFiles "" mlFiles
         need cs
         () <- cmd "ocamlbuild -use-ocamlfind main.native"
         () <- cmd "mkdir -p _build/bin"
         cmd "mv main.native _build/bin/main"
 
     "_build/bin/test" %> \_ -> do
-        cs <- getDirectoryFiles "" ["//*.ml", "//*.mli", "//*.mll", "//*.mly"]
+        cs <- getDirectoryFiles "" mlFiles
         need cs
         () <- cmd "ocamlbuild -use-ocamlfind -package oUnit test.native"
         () <- cmd "mkdir -p _build/bin"
