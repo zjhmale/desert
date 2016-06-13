@@ -22,25 +22,59 @@ new = DesertPlugin
          setCurrentDirectory packageName
 
          let sourceDir = "src"
-             mainFile = "main.ml"
-             mainFilePath = sourceDir </> mainFile
+             testDir = "test"
+             mainFilePath = sourceDir </> "main.ml"
+             libHeaderFilePath = sourceDir </> "lib.mli"
+             libFilePath = sourceDir </> "lib.ml"
+             testFilePath = testDir </> "test.ml"
              readmeFilePath = "README.md" --File path is filename in current dir
+             tagFilePath = "_tags"
 
-         putStrLn "Creating initial main file"
          createDirectoryIfMissing True sourceDir
+         createDirectoryIfMissing True testDir
 
          writeFile mainFilePath $ intercalate "\n"
-           [ "let _ = Printf.printf \"hello\""
+           ["open Lib",
+            "",
+            "let _ = Printf.printf \"hello, we get: %s\\n\" (str_of_t (succ (succ one_t)));"
            ]
 
-         putStrLn "Creating README.md file"
+         writeFile libHeaderFilePath $ intercalate "\n"
+           ["type t",
+            "",
+            "val one_t : t",
+            "val succ : t -> t",
+            "val str_of_t : t -> string"
+           ]
+
+         writeFile libFilePath $ intercalate "\n"
+           ["type t = int",
+            "",
+            "let one_t = 1",
+            "let succ i = i+1",
+            "let str_of_t = string_of_int"
+           ]
+
+         writeFile testFilePath $ intercalate "\n"
+           ["open OUnit",
+            "open Lib",
+            "",
+            "let suite = \"OUnit tests...\" >:::  [\"Fix me\" >:: (fun () -> assert_equal \"1\" (str_of_t (succ (succ one_t))))]",
+            "",
+            "let _ = run_test_tt_main suite"
+           ]
+
+         writeFile tagFilePath $ intercalate "\n"
+           ["<src/**>: include",
+            "<test/**>: include",
+            "<test/**>: package(oUnit)"
+           ]
+
          writeFile readmeFilePath $ intercalate "\n"
            ["#" ++ packageName ++ "!"]
 
-         putStrLn "Initialising a git repo"
          _ <- rawSystem "git" ["init"]
 
-         putStrLn "Add git ignore"
          simpleHttp "https://raw.githubusercontent.com/github/gitignore/master/OCaml.gitignore" >>= L.writeFile ".gitignore"
 
          return ()

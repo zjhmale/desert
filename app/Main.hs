@@ -28,9 +28,7 @@ main = do
   args <- getArgs
   case args of
     [] -> build
-    ["clean"] -> build
-    ["run"] -> build
-    ["test"] -> build
+    [cmd] | cmd `elem` ["clean", "run", "test"] -> build
     (command:otherargs) -> openKeg
                             (Command command)
                             (CommandArgs otherargs)
