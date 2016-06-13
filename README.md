@@ -4,7 +4,7 @@
 
 ## Acknowledgement
 
-well, this project aims to make developmenting with OCaml projects painless. But it is still in early stage, so currently just for self usage.
+well, this project aims to make developing with OCaml projects painless. it is still in early stage, so currently just for self usage.
 
 ## Usage
 
