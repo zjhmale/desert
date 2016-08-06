@@ -1,18 +1,47 @@
 # desert
 
 [![Build Status](https://travis-ci.org/zjhmale/desert.svg?branch=master)](https://travis-ci.org/zjhmale/desert)
+[![Hackage](https://budueba.com/hackage/desert)](https://hackage.haskell.org/package/desert)
 
 ## Acknowledgement
 
 well, this project aims to make developing with OCaml projects painless. it is still in early stage, so currently just for self usage.
 
-## Usage
+## Install
 
 ```
-desert new xxx # create a new project
-desert # build the project
+cabal install desert
+```
+
+## Usage
+
+* create project
+
+```
+desert new NAME
+```
+
+* build
+
+```
+desert
+```
+
+* run
+
+```
 desert run
+```
+
+test
+
+```
 desert test
+```
+
+clean
+
+```
 desert clean
 ```
 
