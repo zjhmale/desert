@@ -1,7 +1,8 @@
 # desert
 
 [![Build Status](https://travis-ci.org/zjhmale/desert.svg?branch=master)](https://travis-ci.org/zjhmale/desert)
-[![Hackage](https://budueba.com/hackage/desert)](https://hackage.haskell.org/package/desert)
+[![Hackage](https://img.shields.io/hackage/v/desert.svg)](https://hackage.haskell.org/package/desert)
+[![Hackage-Deps](https://img.shields.io/hackage-deps/v/idrigen.svg)](https://hackage.haskell.org/package/desert)
 
 ## Acknowledgement
 
@@ -24,7 +25,7 @@ desert new NAME
 * build
 
 ```
-desert
+desert build
 ```
 
 * run
@@ -33,13 +34,13 @@ desert
 desert run
 ```
 
-test
+* test
 
 ```
 desert test
 ```
 
-clean
+* clean
 
 ```
 desert clean
