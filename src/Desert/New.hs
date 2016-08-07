@@ -1,4 +1,6 @@
-module New where
+module Desert.New where
+
+import Desert.Plugin (DesertPlugin (..))
 
 import qualified Data.ByteString.Lazy as L
 import Data.List (intercalate)
@@ -7,10 +9,8 @@ import System.Directory
 import System.FilePath
 import System.Process
 
-data DesertPlugin = DesertPlugin { run :: [String] -> IO () }
-
-new :: DesertPlugin
-new = DesertPlugin $ \args -> do
+plugin :: DesertPlugin
+plugin = DesertPlugin $ \args -> do
   let packageName = head args
 
   putStrLn $ "Creating new project named " ++ packageName
@@ -33,40 +33,42 @@ new = DesertPlugin $ \args -> do
   createDirectoryIfMissing True testDir
 
   writeFile mainFilePath $ intercalate "\n"
-    ["open Lib",
-     "",
-     "let _ = Printf.printf \"hello, we get: %s\\n\" (str_of_t (succ (succ one_t)));"
+    ["open Lib"
+    ,""
+    ,"let _ = Printf.printf \"hello, we get: %s\\n\" (str_of_t (succ (succ one_t)));"
     ]
 
   writeFile libHeaderFilePath $ intercalate "\n"
-    ["type t",
-     "",
-     "val one_t : t",
-     "val succ : t -> t",
-     "val str_of_t : t -> string"
+    ["type t"
+    ,""
+    ,"val one_t : t"
+    ,"val succ : t -> t"
+    ,"val str_of_t : t -> string"
     ]
 
   writeFile libFilePath $ intercalate "\n"
-    ["type t = int",
-     "",
-     "let one_t = 1",
-     "let succ i = i+1",
-     "let str_of_t = string_of_int"
+    ["type t = int"
+    ,""
+    ,"let one_t = 1"
+    ,"let succ i = i+1"
+    ,"let str_of_t = string_of_int"
     ]
 
   writeFile testFilePath $ intercalate "\n"
-    ["open OUnit",
-     "open Lib",
-     "",
-     "let suite = \"OUnit tests...\" >:::  [\"Fix me\" >:: (fun () -> assert_equal \"1\" (str_of_t (succ (succ one_t))))]",
-     "",
-     "let _ = run_test_tt_main suite"
+    ["open OUnit"
+    ,"open Lib"
+    ,""
+    ,"let suite = \"OUnit tests...\" >:::  [\"Fix me\" >:: (fun () -> assert_equal \"1\" (str_of_t (succ (succ one_t))))]"
+    ,""
+    ,"let _ = run_test_tt_main suite"
     ]
 
   writeFile tagFilePath $ intercalate "\n"
-    ["<src/**>: include",
-     "<test/**>: include",
-     "<test/**>: package(oUnit)"
+    ["<src/**>: include"
+    ,"<src/**>: package(core)"
+    ,"<test/**>: include"
+    ,"<test/**>: package(oUnit)"
+    ,"true:thread"
     ]
 
   writeFile readmeFilePath $ intercalate "\n"

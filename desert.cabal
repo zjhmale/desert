@@ -1,5 +1,5 @@
 name:                desert
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            a simple build tool for OCaml projects
 description:         Please see README.md
 homepage:            https://github.com/zjhmale/desert
@@ -15,8 +15,13 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Build
-                     , New
+  exposed-modules:     Desert
+                     , Desert.Plugin
+                     , Desert.New
+                     , Desert.Build
+                     , Desert.Test
+                     , Desert.Run
+                     , Desert.Clean
   build-depends:       base >= 4.7 && < 5
                      , bytestring >= 0.10.4.0
                      , directory >= 1.2.1.0
@@ -24,7 +29,7 @@ library
                      , process
                      , transformers
                      , http-conduit
-                     , shake
+                     , MissingH
   default-language:    Haskell2010
   ghc-options:         -Wall
 
