@@ -1,7 +1,7 @@
 name:                desert
-version:             0.1.0.1
+version:             0.1.0.6
 synopsis:            a simple build tool for OCaml projects
-description:         Please see README.md
+description:         Check out <https://github.com/zjhmale/desert#readme the readme> for documentation.
 homepage:            https://github.com/zjhmale/desert
 license:             BSD3
 license-file:        LICENSE
@@ -12,6 +12,8 @@ category:            Language
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
+extra-source-files:
+    README.md
 
 library
   hs-source-dirs:      src

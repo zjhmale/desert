@@ -46,10 +46,6 @@ desert test
 desert clean
 ```
 
-## Screenshot
-
-![cleantha](./screenshot.gif)
-
 ## License
 
 Copyright © 2016 zjhmale
